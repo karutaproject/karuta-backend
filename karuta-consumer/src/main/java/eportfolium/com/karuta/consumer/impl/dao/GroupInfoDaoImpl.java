@@ -70,9 +70,9 @@ public class GroupInfoDaoImpl extends AbstractDaoImpl<GroupInfo> implements Grou
 	}
 
 	@Override
-	public Long add(Long grid, long owner, String label) {
+	public Long add(GroupRightInfo grid, long owner, String label) {
 		GroupInfo gi = new GroupInfo();
-		gi.setGroupRightInfo(new GroupRightInfo(grid));
+		gi.setGroupRightInfo(grid);
 		gi.setOwner(owner);
 		gi.setLabel(label);
 		persist(gi);
@@ -83,7 +83,6 @@ public class GroupInfoDaoImpl extends AbstractDaoImpl<GroupInfo> implements Grou
 		List<GroupInfo> res = null;
 		try {
 			String sql = "SELECT DISTINCT gi FROM GroupInfo gi";
-			sql += " INNER JOIN gi.groupUser gu";
 			sql += " INNER JOIN gi.groupRightInfo gri";
 			sql += " WHERE gri.portfolio.id = :portfolioUuid";
 			sql += " AND gri.label = :label";

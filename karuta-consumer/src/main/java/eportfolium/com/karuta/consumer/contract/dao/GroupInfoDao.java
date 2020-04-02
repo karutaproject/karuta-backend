@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import eportfolium.com.karuta.model.bean.GroupInfo;
+import eportfolium.com.karuta.model.bean.GroupRightInfo;
 import eportfolium.com.karuta.model.exception.DoesNotExistException;
 
 public interface GroupInfoDao {
@@ -21,7 +22,7 @@ public interface GroupInfoDao {
 
 	void removeById(final Serializable id) throws DoesNotExistException;
 
-	Long add(Long grid, long owner, String label);
+	Long add(GroupRightInfo grid, long owner, String label);
 
 	List<GroupInfo> getGroupsByRole(String portfolioUuid, String role);
 

@@ -81,6 +81,7 @@ import eportfolium.com.karuta.consumer.contract.dao.PortfolioGroupDao;
 import eportfolium.com.karuta.consumer.contract.dao.PortfolioGroupMembersDao;
 import eportfolium.com.karuta.consumer.contract.dao.ResourceTableDao;
 import eportfolium.com.karuta.consumer.util.DomUtils;
+import eportfolium.com.karuta.model.bean.Credential;
 import eportfolium.com.karuta.model.bean.GroupInfo;
 import eportfolium.com.karuta.model.bean.GroupRightInfo;
 import eportfolium.com.karuta.model.bean.GroupRights;
@@ -1204,7 +1205,10 @@ public class PortfolioManagerImpl extends BaseManager implements PortfolioManage
 			/// Finalement on crée un role designer
 			groupid = securityManager.addRole(portfolioUuid, "designer", userId);
 
-			groupUserDao.addUserInGroup(userId, groupid);
+			Credential usercred = credentialDao.findById(userId);
+			GroupInfo groupobj = groupInfoDao.getGroupsByRole(portfolioUuid, "designer").get(0);
+			
+			groupUserDao.addUserInGroup(usercred, groupobj);
 
 			// Maj. de la date
 			portfolioDao.updateTime(portfolioUuid);
@@ -1289,8 +1293,11 @@ public class PortfolioManagerImpl extends BaseManager implements PortfolioManage
 		/// XML reçu.
 		roleId = securityManager.addRole(portfolio.getId().toString(), "designer", userId);
 
+		Credential usercred = credentialDao.findById(userId);
+		GroupInfo groupobj = groupInfoDao.getGroupsByRole(portfolio.getId().toString(), "designer").get(0);
+
 		/// Ajoute la personne dans ce groupe
-		groupUserDao.addUserInGroup(roleId, userId);
+		groupUserDao.addUserInGroup(usercred, groupobj);
 
 		String result = "<portfolios>";
 		result += "<portfolio ";
@@ -1441,8 +1448,11 @@ public class PortfolioManagerImpl extends BaseManager implements PortfolioManage
 					/// Finalement on crée un rôle de designer
 					groupid = securityManager.addRole(portfolio.getId().toString(), "designer", userId);
 
+					Credential usercred = credentialDao.findById(userId);
+					GroupInfo groupobj = groupInfoDao.getGroupsByRole(portfolio.getId().toString(), "designer").get(0);
+
 					/// Ajoute la personne dans ce groupe
-					groupUserDao.addUserInGroup(groupid, userId);
+					groupUserDao.addUserInGroup(usercred, groupobj);
 
 					hasLoaded = true;
 				}
@@ -1896,8 +1906,11 @@ public class PortfolioManagerImpl extends BaseManager implements PortfolioManage
 			/// Finalement on crée un role designer
 			Long groupid = securityManager.addRole(newPortfolioUuid, "designer", userId);
 
+			Credential usercred = credentialDao.findById(userId);
+			GroupInfo groupobj = groupInfoDao.getGroupsByRole(newPortfolioUuid, "designer").get(0);
+
 			/// Ajoute la personne dans ce groupe
-			groupUserDao.addUserInGroup(groupid, userId);
+			groupUserDao.addUserInGroup(usercred, groupobj);
 
 			/// Force 'all' role creation
 			groupid = securityManager.addRole(newPortfolioUuid, "all", userId);

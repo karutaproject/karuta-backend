@@ -91,7 +91,7 @@ public interface GroupRightInfoDao {
 	 * @param role
 	 * @return
 	 */
-	Long add(Portfolio portfolio, String role);
+	GroupRightInfo add(Portfolio portfolio, String role);
 
 	/**
 	 * Crée le role pour ce portfolio.
@@ -100,6 +100,8 @@ public interface GroupRightInfoDao {
 	 * @param role
 	 * @return
 	 */
+	/// Need to reference actual object in database
+	@Deprecated
 	Long add(String portfolioUuid, String role);
 
 	void removeById(Long groupRightInfoId) throws Exception;

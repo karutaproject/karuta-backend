@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.UUID;
 
+import eportfolium.com.karuta.model.bean.Credential;
+import eportfolium.com.karuta.model.bean.GroupInfo;
 import eportfolium.com.karuta.model.bean.GroupUser;
 import eportfolium.com.karuta.model.exception.BusinessException;
 import eportfolium.com.karuta.model.exception.DoesNotExistException;
@@ -65,7 +67,7 @@ public interface GroupUserDao {
 	 * 
 	 * @return
 	 */
-	Long addUserInGroup(Long userId, Long groupid);
+	Long addUserInGroup(Credential userId, GroupInfo groupid);
 
 	GroupUser getByUserAndRole(Long userId, Long rrgid);
 

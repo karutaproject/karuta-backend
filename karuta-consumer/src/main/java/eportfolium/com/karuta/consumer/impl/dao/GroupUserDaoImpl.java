@@ -136,10 +136,10 @@ public class GroupUserDaoImpl extends AbstractDaoImpl<GroupUser> implements Grou
 	/**
 	 * Ajoute la personne dans ce groupe
 	 */
-	public Long addUserInGroup(Long userId, Long groupid) {
+	public Long addUserInGroup(Credential userId, GroupInfo groupid) {
 		Long retval = Long.valueOf(0);
 		try {
-			final GroupUser gu = new GroupUser(new GroupUserId(new GroupInfo(groupid), new Credential(userId)));
+			final GroupUser gu = new GroupUser(new GroupUserId(groupid, userId));
 			persist(gu);
 		} catch (Exception ex) {
 			ex.printStackTrace();

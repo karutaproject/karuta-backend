@@ -151,15 +151,15 @@ public class GroupRightInfoDaoImpl extends AbstractDaoImpl<GroupRightInfo> imple
 	}
 
 	@Override
-	public Long add(Portfolio portfolio, String role) {
-		Long result = 0L;
+	public GroupRightInfo add(Portfolio portfolio, String role) {
+		GroupRightInfo result = null;
 		GroupRightInfo gri = new GroupRightInfo();
 		gri.setOwner(1);
 		gri.setLabel(role);
 		gri.setPortfolio(portfolio);
 		try {
 			persist(gri);
-			result = gri.getId();
+			result = gri;
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

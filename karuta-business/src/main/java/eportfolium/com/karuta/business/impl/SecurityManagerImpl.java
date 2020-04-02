@@ -781,7 +781,9 @@ public class SecurityManagerImpl implements SecurityManager {
 	 */
 	public Long addRole(String portfolioUuid, String role, Long userId) throws BusinessException {
 		Long groupId = 0L;
-		Node rootNode = portfolioDao.getPortfolioRootNode(portfolioUuid);
+		
+		Portfolio portfolio = portfolioDao.getPortfolio(portfolioUuid);
+		Node rootNode = portfolio.getRootNode();
 
 		if (!credentialDao.isAdmin(userId) && !credentialDao.isDesigner(userId, rootNode.getId().toString())
 				&& !credentialDao.isCreator(userId))
@@ -792,8 +794,8 @@ public class SecurityManagerImpl implements SecurityManager {
 			if (gri != null) {
 				groupId = gri.getGroupInfo().getId();
 			} else {
-				Long grid = groupRightInfoDao.add(portfolioUuid, role);
-				if (grid != 0) {
+				GroupRightInfo grid = groupRightInfoDao.add(portfolio, role);
+				if (grid != null) {
 					groupId = groupInfoDao.add(grid, 1L, role);
 				}
 			}
