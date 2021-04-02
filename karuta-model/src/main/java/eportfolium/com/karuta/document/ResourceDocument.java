@@ -142,10 +142,12 @@ public class ResourceDocument {
     }
 
     @JsonGetter("code")
+    @JsonRawValue
     public String getCode() {
         return code;
     }
 
+    @JsonRawValue
     public void setCode(String code) {
         this.code = code;
 
