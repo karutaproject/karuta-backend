@@ -31,7 +31,12 @@ public class NodeListDocumentSerializer extends JsonSerializer<NodeList> {
 				sb.append(metadata).append(metadata_epm).append(metadata_wad);
 				for( ResourceDocument r : n.getResources() )
 				{
-					sb.append(mapper.writeValueAsString(r));
+					String convertedContent = mapper.writeValueAsString(r);
+					/// 2 times because Spring convert tags when sending data
+					convertedContent = convertedContent.replace("&", "&amp;");
+					convertedContent = convertedContent.replace("&", "&amp;");
+
+					sb.append(convertedContent);
 				}
 				/// Should just have a toString with hibernate DB objects
 				gen.writeRaw(String.format("<%s id=\"%s\">%s", n.getType(), n.getId(), sb.toString()));
