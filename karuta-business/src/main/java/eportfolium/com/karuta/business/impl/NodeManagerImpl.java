@@ -824,8 +824,8 @@ public class NodeManagerImpl extends BaseManagerImpl implements NodeManager {
 							&& StringUtils.indexOf(n.getSemantictag(), parentSemtag) != -1)
 				.findFirst();
 
-
-			Stream<Node> nodeStream = listHierarchy(parentTagNode.orElse(null), new ArrayList<>(), cutoff)
+			/// Got single parent node, will need nodes under to search
+			Stream<Node> nodeStream = listHierarchy(parentTagNode.orElse(null), nodes, cutoff)
 					.stream()
 					.filter(node -> StringUtils.indexOf(node.getSemantictag(), childSemtag) != -1)
 					.sorted((o1, o2) -> {

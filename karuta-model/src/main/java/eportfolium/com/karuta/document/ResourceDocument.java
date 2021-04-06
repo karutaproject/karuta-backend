@@ -94,9 +94,13 @@ public class ResourceDocument {
 
         if (resource.getContent() != null) {
             try {
+            	String convertedContent = resource.getContent();
+            	/// 2 times because Spring convert tags when sending data
+            	convertedContent = convertedContent.replace("&", "&amp;");
+            	convertedContent = convertedContent.replace("&", "&amp;");
                 XmlMapper mapper = new XmlMapper();
                 ResourceDocument subset = mapper.readerFor(ResourceDocument.class)
-                        .readValue("<asmResource>" + resource.getContent() + "</asmResource>");
+                        .readValue("<asmResource>" + convertedContent + "</asmResource>");
 
                 this.filename = subset.getFilename();
                 this.fileid = subset.getFileid();
